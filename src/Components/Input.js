@@ -2,24 +2,16 @@ import React from "react";
 
 export default function Input({
   textInput,
-  setTextInput,
   sendMessage,
   char,
   handleInputText,
-  setUsername,
-  username,
 }) {
   return (
     <div>
-      <form onSubmit={(e) => sendMessage(e)}>
-        <label>Username</label>
+      <form style={{ marginTop: "2%" }} onSubmit={(e) => sendMessage(e)}>
         <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
-        />
-        <label>Message</label>
-        <input
+          style={{ width: "30%" }}
+          placeholder="Write something"
           value={textInput}
           onChange={(e) => handleInputText(e)}
           type="text"

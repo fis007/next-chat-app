@@ -1,15 +1,31 @@
 import React from "react";
 
-export default function ConversationField({ conversation }) {
-  let randomNum = Math.floor(Math.random() * 285);
-  console.log(randomNum);
+export default function ConversationField({ conversation, username }) {
   return conversation.map((data, index) => {
     return (
-      <div key={index} style={{ border: "1px solid black" }}>
-        <img src={`https://api.adorable.io/avatars/285/${data.username}`} />
-        <h1>{data.username}</h1>
-        <p>{data.message}</p>
-        <h3>{data.timestamp}</h3>
+      <div style={{ display: "flex", margin: "10% 10%" }} key={index}>
+        <img
+          style={{
+            height: "10%",
+            width: "10%",
+            borderRadius: "50%",
+            border: "1px solid gold",
+          }}
+          src={`https://api.adorable.io/avatars/285/${data.username}`}
+        />
+
+        <div
+          style={{
+            border: "1px solid black",
+            padding: "5%",
+            boxShadow: "5px 5px",
+          }}
+        >
+          <p>{data.message}</p>
+          <p style={{ color: "gray" }}>
+            {data.username} {data.timestamp}
+          </p>
+        </div>
       </div>
     );
   });
