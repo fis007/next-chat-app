@@ -23,7 +23,7 @@ export default function ConversationField({ conversation, username }) {
         >
           <p>{data.message}</p>
           <p style={{ color: "gray" }}>
-            {data.username} {data.timestamp}
+            {data.username} - {data.timestamp}
           </p>
         </div>
       </div>

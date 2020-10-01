@@ -11,7 +11,6 @@ function App() {
   const [char, setChar] = useState(false);
   const [username, setUsername] = useState();
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState();
   const [conversation, setConversation] = useState([
     {
       username: "Edwind",
@@ -45,40 +44,37 @@ function App() {
       // think about what to do here
       setUsers(users);
     });
+
+    Socket.on("RECEIVE_BROADCAST", (data) => {
+      // think about what to do here
+      console.log("RECEIVE BROADCAST:");
+      console.log(data);
+
+      let newItem = {
+        username: data.username,
+        message: data.message,
+        timestamp: data.timestamp,
+      };
+      setConversation((prevState) => {
+        return [...prevState, newItem];
+      });
+    });
   }, []);
-
-  // useEffect(() => {
-  //   Socket.on("RECEIVE_BROADCAST", (data) => {
-  //     // think about what to do here
-  //     console.log("RECEIVE BROADCAST:");
-  //     console.log(data);
-  //     let copy = [...conversation];
-  //     let newItem = {
-  //       username: data.username,
-  //       message: data.textInput,
-  //       timestamp: data.timestamp,
-  //     };
-
-  //     copy.push(newItem);
-  //     setConversation(copy);
-  //     console.log(conversation);
-  //   });
-  // }, [message]);
 
   const sendMessage = (e) => {
     e.preventDefault();
     if (textInput !== "") {
-      const data = {
+      setTextInput(e.target.value);
+      let data = {
         username: username,
         message: textInput,
-        timestamp: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        timestamp: moment().format("LT"),
       };
-
       Socket.emit("BROADCAST_MESSAGE", data);
 
-      let copy = [...conversation];
-      copy.push(data);
-      setConversation(copy);
+      // let copy = [...conversation];
+      // copy.push(data);
+      // setConversation(copy);
 
       setTextInput("");
     }
@@ -105,7 +101,7 @@ function App() {
       className="App"
     >
       <OnlineUsers users={users} />
-      <div style={{ marginLeft: "10%" }}>
+      <div style={{ marginLeft: "5%" }}>
         <ConversationField username={username} conversation={conversation} />
         <TextInput
           setUsername={setUsername}
