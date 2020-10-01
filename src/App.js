@@ -5,6 +5,8 @@ import ConversationField from "./Components/ConversationField";
 import moment from "moment";
 import Socket from "./utils/socket";
 import OnlineUsers from "./Components/OnlineUsers";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -102,7 +104,9 @@ function App() {
     >
       <OnlineUsers users={users} />
       <div style={{ marginLeft: "5%" }}>
-        <ConversationField username={username} conversation={conversation} />
+        <PerfectScrollbar style={{ height: "80%" }}>
+          <ConversationField username={username} conversation={conversation} />
+        </PerfectScrollbar>
         <TextInput
           setUsername={setUsername}
           username={username}
